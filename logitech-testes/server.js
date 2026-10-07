@@ -54,6 +54,12 @@ app.patch("/api/v1/entregas/:id/status", (request, response) => {
     response.json(entrega)
 })
 
-app.listen(3000, () => {
-    console.log("API rodando em http://localhost:3000")
-})
+// Só sobe o servidor quando executado direto (node server.js).
+// Nos testes, o Supertest usa o app sem abrir a porta 3000.
+if (require.main === module) {
+    app.listen(3000, () => {
+        console.log("API rodando em http://localhost:3000")
+    })
+}
+
+module.exports = app
